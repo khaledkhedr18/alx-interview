@@ -1,41 +1,25 @@
 #!/usr/bin/python3
-"""
-Module for 0-minoperations
-Contains function minOperations calculates the minimum number of operations
-required to obtain exactly n 'H' characters, where each operation is either
-a copy-all operation or a paste operation.
-"""
+""" Module for 0-minoperations"""
 
 
-def min_operations(target_length):
+def minOperations(n):
     """
-    Calculates the minimum number of operations needed to obtain exactly
-    target_length 'H' characters, where each operation is either a copy-all
-    operation or a paste operation.
-
-    Args:
-        target_length (int): The target length of the resulting string.
-
-    Returns:
-        int: The minimum number of operations needed.
+    minOperations
+    Gets fewest # of operations needed to result in exactly n H characters
     """
-
-    # If target length is less than 2, no operations are needed.
-    if target_length < 2:
+    # all outputs should be at least 2 char: (min, Copy All => Paste)
+    if (n < 2):
         return 0
-
-    operations = 0
-    current_length = 2
-
-    # Loop through prime factors of target length, incrementing operations
-    # for each factor found.
-    while current_length <= target_length:
-        # If target length is divisible by current length, a copy-all operation
-        # followed by a paste operation is needed for each factor.
-        if target_length % current_length == 0:
-            operations += current_length
-            target_length //= current_length
-        # Increment current length to find next prime factor.
-        current_length += 1
-
-    return operations
+    ops, root = 0, 2
+    while root <= n:
+        # if n evenly divides by root
+        if n % root == 0:
+            # total even-divisions by root = total operations
+            ops += root
+            # set n to the remainder
+            n = n / root
+            # reduce root to find remaining smaller vals that evenly-divide n
+            root -= 1
+        # increment root until it evenly-divides n
+        root += 1
+    return ops
