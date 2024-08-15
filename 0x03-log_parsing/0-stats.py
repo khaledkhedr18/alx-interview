@@ -58,4 +58,3 @@ try:
 
 except KeyboardInterrupt:
     print_msg(total_file_size, status_codes)
-
